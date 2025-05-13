@@ -1,4 +1,5 @@
 import numpy as np
+# from lxml.classlookup import self
 
 class GraphController:
     """Coordinates between Model and View"""
@@ -14,7 +15,7 @@ class GraphController:
         """Handle button press event"""
         # Generate sample data (replace with actual data source)
         self.counter += 1
-        data, x_values = self.model.update_data(np.sin(self.counter))
+        data, x_values = self.model.get_bitcoin_price()
         
         # Update the view
         self.view.update_graph(data, x_values)
