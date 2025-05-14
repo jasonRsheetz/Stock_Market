@@ -40,22 +40,11 @@ class GraphModel:
             print(f"Error fetching price: {str(e)}")
             return None
 
-# def main():
-#     print("Starting Bitcoin Price Monitor...")
-#
-#     while True:
-#         current_time = datetime.now().strftime("%H:%M:%S")
-#         price = get_bitcoin_price()
-#
-#         if price is not None:
-#             print(f"{current_time}: ${price:,.2f}")
-#
-#         time.sleep(60)  # Wait for 60 seconds
-#
-# if __name__ == "__main__":
-#     try:
-#         main()
-#     except KeyboardInterrupt:
-#         print("\nMonitoring stopped by user.")
-        
+    def write_data(self):
+        try:
+            file = open("data.txt", "a")
+            file.write(str(self.data[len(self.data)-1]) + '\n')
+            file.close()
+        except Exception as e:
+                print(f"Error opening file: {str(e)}")
         

@@ -17,5 +17,8 @@ class GraphController:
         self.counter += 1
         data, x_values = self.model.get_bitcoin_price()
         
+        #save data 
+        self.model.write_data()
+        
         # Update the view
         self.view.update_graph(data, x_values)
