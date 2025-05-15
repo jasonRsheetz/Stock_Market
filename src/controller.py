@@ -10,15 +10,17 @@ class GraphController:
         
         # Connect view elements to controller actions
         self.view.set_button_command(self.handle_button_press)
-    
+        self.model.init_timer()
+        
     def handle_button_press(self):
         """Handle button press event"""
         # Generate sample data (replace with actual data source)
-        self.counter += 1
-        data, x_values = self.model.get_bitcoin_price()
+        data, x_values = self.model.get_current_data()
         
-        #save data 
-        self.model.write_data()
+        work on these commented out lines
+        # min_x = self.view.get_min_x()
+        # max_x = self.view.get_max_x()
         
         # Update the view
         self.view.update_graph(data, x_values)
+        # self.view.update_graph((max_x - min_x), x_values[min_x:max_x])

@@ -21,6 +21,12 @@ class GraphView:
         self.button = tk.Button(self.container, text="Update Graph")
         self.button.pack(pady=5)
         
+        #setup input boxes
+        self.min_x = tk.Entry(self.container)
+        self.max_x = tk.Entry(self.container)
+        self.min_x.pack(pady=5)
+        self.max_x.pack(pady=5)
+        
         # Initialize plot
         self.ax = self.fig.add_subplot(111)
         self.line, = self.ax.plot([], [])
@@ -39,4 +45,10 @@ class GraphView:
     def set_button_command(self, callback):
         """Set the button click handler"""
         self.button.config(command=callback)
+        
+    def get_max_x(self):
+        return int(self.max_x.get())
+    
+    def get_min_x(self):
+        return int(self.min_x.get())
         
