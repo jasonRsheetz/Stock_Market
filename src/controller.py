@@ -17,10 +17,10 @@ class GraphController:
         # Generate sample data (replace with actual data source)
         data, x_values = self.model.get_current_data()
         
-        work on these commented out lines
-        # min_x = self.view.get_min_x()
-        # max_x = self.view.get_max_x()
+        # work on these commented out lines
+        min_x = self.view.get_min_x()
+        max_x = self.view.get_max_x(len(x_values))
         
         # Update the view
-        self.view.update_graph(data, x_values)
-        # self.view.update_graph((max_x - min_x), x_values[min_x:max_x])
+        # self.view.update_graph(data, x_values)
+        self.view.update_graph(data[min_x:max_x+1], x_values[min_x:max_x+1])

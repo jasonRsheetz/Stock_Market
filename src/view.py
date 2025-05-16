@@ -46,9 +46,28 @@ class GraphView:
         """Set the button click handler"""
         self.button.config(command=callback)
         
-    def get_max_x(self):
-        return int(self.max_x.get())
+    def get_max_x(self, len_x_data):
+        
+        value = int(self.max_x.get())
+        
+        if value > len_x_data:
+            return len_x_data
+        else:
+            return value
     
     def get_min_x(self):
-        return int(self.min_x.get())
+        
+        min_value = int(self.min_x.get())
+        max_value = int(self.max_x.get())
+        
+        if min_value > max_value:
+            return max_value
+        else:
+            return min_value
+        
+        
+        
+        
+        
+        
         
