@@ -9,6 +9,7 @@ class GraphController:
     def __init__(self, model, view):
         self.model = model
         self.view = view
+        self.view.controller = self  # Reference back to controller
         self.counter = 0
         
         # Connect view elements to controller actions
@@ -42,6 +43,17 @@ class GraphController:
         
         # Update the view
         self.view.update_graph(data[min_x:len(x_values)], x_values[min_x:len(x_values)])
+        
+    def on_slider_change(self, value):
+        # Update model when slider changes
+        data, x_values = self.model.get_graph_min(value)
+        
+        # Update the view
+        self.view.update_graph(data, x_values)
+        
+        
+        
+        
         
         
         

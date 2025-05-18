@@ -35,8 +35,7 @@ class GraphView:
             from_=0,
             to=100,
             orient='horizontal',
-            variable=self.horizontal_var,
-            command=lambda x: self.show_values()
+            command=self._on_slider_change
             )
         self.horizontal_slider.pack(pady=5)
 
@@ -65,7 +64,9 @@ class GraphView:
         self.h_value.set(f"Horizontal: {self.horizontal_var.get():.1f}")
         
 
-
+    def _on_slider_change(self, value):
+        # Notify controller of slider change
+        self.controller.on_slider_change(float(value))
         
         
         

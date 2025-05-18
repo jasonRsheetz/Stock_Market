@@ -15,6 +15,8 @@ class GraphModel:
         # self.data = []
         self.x_values = np.arange(len(self.data))
     
+        self.graph_min = 0
+        
     def update_data(self, new_value):
         """Add new data point and update x-axis"""
         self.data.append(new_value)
@@ -55,8 +57,8 @@ class GraphModel:
                 print(f"Error opening file: {str(e)}")
         
 
-
-        
+    def get_graph_min(self, value):
+        return self.data[int(value):len(self.data)], self.x_values[int(value):len(self.data)]
         
         
         
