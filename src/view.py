@@ -22,11 +22,24 @@ class GraphView:
         self.button.pack(pady=5)
         
         #setup input boxes
-        self.min_x = tk.Entry(self.container)
-        self.max_x = tk.Entry(self.container)
+        min_value_string = tk.StringVar(value="0")
+        self.min_x = tk.Entry(self.container, textvariable=min_value_string)
         self.min_x.pack(pady=5)
-        self.max_x.pack(pady=5)
         
+        
+        self.horizontal_var = tk.DoubleVar()
+        self.h_value = tk.StringVar(value="Horizontal: 0.0")
+        # Create horizontal slider
+        self.horizontal_slider = tk.Scale(
+            root,
+            from_=0,
+            to=100,
+            orient='horizontal',
+            variable=self.horizontal_var,
+            command=lambda x: self.show_values()
+            )
+        self.horizontal_slider.pack(pady=5)
+
         # Initialize plot
         self.ax = self.fig.add_subplot(111)
         self.line, = self.ax.plot([], [])
@@ -42,32 +55,17 @@ class GraphView:
         self.ax.autoscale_view()
         self.canvas.draw()
     
-    def set_button_command(self, callback):
-        """Set the button click handler"""
-        self.button.config(command=callback)
-        
-    def get_max_x(self, len_x_data):
-        
-        value = int(self.max_x.get())
-        
-        if value > len_x_data:
-            return len_x_data
-        else:
-            return value
-    
     def get_min_x(self):
         
         min_value = int(self.min_x.get())
-        max_value = int(self.max_x.get())
+        return min_value
+
+    def show_values(self):
+        # Update labels with current values
+        self.h_value.set(f"Horizontal: {self.horizontal_var.get():.1f}")
         
-        if min_value > max_value:
-            return max_value
-        else:
-            return min_value
-        
-        
-        
-        
+
+
         
         
         

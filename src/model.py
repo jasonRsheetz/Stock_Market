@@ -1,9 +1,9 @@
 import numpy as np
 import requests
-import time
-from datetime import datetime
-import threading
-import time
+# import time
+# from datetime import datetime
+# import threading
+# import time
 
 
 class GraphModel:
@@ -54,22 +54,8 @@ class GraphModel:
         except Exception as e:
                 print(f"Error opening file: {str(e)}")
         
-    def init_timer(self):
-        # Create and start the timer
-        self.timer = threading.Thread(target=self.timer_function, args=(20.0, self.get_timer_driven_data))
-        self.timer.daemon = True  # So the thread dies when main program exits
-        self.timer.start()
-        
-    def timer_function(self,interval, callback):
-        while True:
-            time.sleep(interval)
-            callback()
 
-    def get_timer_driven_data(self):
-        self.get_bitcoin_price()
-        
-        #save data 
-        self.write_data()
+
         
         
         

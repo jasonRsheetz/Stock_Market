@@ -1,5 +1,8 @@
 import numpy as np
-# from lxml.classlookup import self
+import time
+from datetime import datetime
+import threading
+import time
 
 class GraphController:
     """Coordinates between Model and View"""
@@ -9,18 +12,36 @@ class GraphController:
         self.counter = 0
         
         # Connect view elements to controller actions
-        self.view.set_button_command(self.handle_button_press)
-        self.model.init_timer()
+        # self.view.set_button_command(self.handle_button_press)
         
-    def handle_button_press(self):
-        """Handle button press event"""
+        # Set initial graph
+        data, x_values = self.model.get_current_data()
+        self.view.update_graph(data, x_values)
+        
+        # Create and start the timer
+        self.timer = threading.Thread(target=self.timer_function, args=(20.0, self.get_timer_driven_data))
+        self.timer.daemon = True  # So the thread dies when main program exits
+        self.timer.start()
+        
+    def timer_function(self,interval, callback):
+        while True:
+            time.sleep(interval)
+            callback()
+
+    def get_timer_driven_data(self):
+        self.model.get_bitcoin_price()
+        
+        #save data 
+        self.model.write_data()
+        
         # Generate sample data (replace with actual data source)
         data, x_values = self.model.get_current_data()
         
         # work on these commented out lines
         min_x = self.view.get_min_x()
-        max_x = self.view.get_max_x(len(x_values))
         
         # Update the view
-        # self.view.update_graph(data, x_values)
-        self.view.update_graph(data[min_x:max_x+1], x_values[min_x:max_x+1])
+        self.view.update_graph(data[min_x:len(x_values)], x_values[min_x:len(x_values)])
+        
+        
+        
