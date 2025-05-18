@@ -27,17 +27,18 @@ class GraphView:
         self.min_x.pack(pady=5)
         
         
-        self.horizontal_var = tk.DoubleVar()
-        self.h_value = tk.StringVar(value="Horizontal: 0.0")
+        self.last_slider_length = 0
+        
         # Create horizontal slider
         self.horizontal_slider = tk.Scale(
             root,
             from_=0,
-            to=100,
+            to=1100,
             orient='horizontal',
+            length=300,  # Set desired length in pixels
             command=self._on_slider_change
             )
-        self.horizontal_slider.pack(pady=5)
+        self.horizontal_slider.pack(pady=5, expand=True)
 
         # Initialize plot
         self.ax = self.fig.add_subplot(111)
@@ -53,7 +54,12 @@ class GraphView:
         self.ax.relim()
         self.ax.autoscale_view()
         self.canvas.draw()
-    
+        print(len(data))
+        
+        if len(data)> self.last_slider_length:
+            self.last_slider_length = len(data)
+            self.horizontal_slider.configure(to=len(data))
+        
     def get_min_x(self):
         
         min_value = int(self.min_x.get())
@@ -66,7 +72,7 @@ class GraphView:
 
     def _on_slider_change(self, value):
         # Notify controller of slider change
-        self.controller.on_slider_change(float(value))
+        self.controller.on_slider_change(int(value))
         
         
         
