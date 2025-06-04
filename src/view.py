@@ -17,17 +17,14 @@ class GraphView:
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.container)
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         
-        # Setup button
-        self.button = tk.Button(self.container, text="Update Graph")
+        # button
+        self.button = tk.Button(self.container, text="I am a button", command=self._on_button_press)
         self.button.pack(pady=5)
         
         #setup input boxes
         min_value_string = tk.StringVar(value="0")
         self.min_x = tk.Entry(self.container, textvariable=min_value_string)
         self.min_x.pack(pady=5)
-        
-        
-        self.last_slider_length = 0
         
         # Create horizontal slider
         self.horizontal_slider = tk.Scale(
@@ -39,6 +36,7 @@ class GraphView:
             command=self._on_slider_change
             )
         self.horizontal_slider.pack(pady=5, expand=True)
+        self.last_slider_length = 0
 
         # Initialize plot
         self.ax = self.fig.add_subplot(111)
@@ -75,4 +73,7 @@ class GraphView:
         self.controller.on_slider_change(int(value))
         
         
+    def _on_button_press(self):
+        #notify controller of button press
+        self.controller.button_press()
         

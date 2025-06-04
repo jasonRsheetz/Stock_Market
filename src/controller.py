@@ -52,7 +52,9 @@ class GraphController:
         self.view.update_graph(data, x_values)
         
         
-        
+    def button_press(self):
+        coefficients = self.model.getCoefficientMatrix()
+        print("")
         
         
         

@@ -12,7 +12,6 @@ class GraphModel:
         with open('data.txt', 'r') as file:
             self.data = [int(x) for x in file.read().splitlines()]
     
-        # self.data = []
         self.x_values = np.arange(len(self.data))
     
         self.graph_min = 0
@@ -61,7 +60,14 @@ class GraphModel:
         return self.data[int(value):len(self.data)], self.x_values[int(value):len(self.data)]
         
         
+    def getCoefficientMatrix(self):
+        ones = np.ones_like(self.x_values)
+        x = np.column_stack((self.x_values, ones))
+        inverse = np.linalg.inv(x.T@x)
+        B = inverse@x.T@self.data
+        print("")
         
+        # return np.linalg.inv(self.x_values.T @ self.x_values)@self.x_values.T@self.data
         
         
         
