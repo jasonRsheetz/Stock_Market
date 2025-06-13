@@ -77,3 +77,6 @@ class GraphView:
         #notify controller of button press
         self.controller.button_press()
         
+    def getSliderValue(self):
+        return self.horizontal_slider.get()
+        

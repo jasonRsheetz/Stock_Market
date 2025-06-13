@@ -65,9 +65,152 @@ class GraphModel:
         x = np.column_stack((self.x_values, ones))
         inverse = np.linalg.inv(x.T@x)
         B = inverse@x.T@self.data
-        print("")
+
+        return B
         
-        # return np.linalg.inv(self.x_values.T @ self.x_values)@self.x_values.T@self.data
+    def makeTrendline(self, _x_min):
+        x = self.x_values[_x_min:]
+        A = np.vstack([x, np.ones(len(x))]).T
+        y = np.array(self.data[_x_min:])
+        coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
+        
+        slope = x*coefficients[0]
+        y_offset = np.ones_like(x)*coefficients[1]
+        y_trendline = slope + y_offset
+        return y_trendline, x
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
