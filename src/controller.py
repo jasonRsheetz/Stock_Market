@@ -55,9 +55,9 @@ class GraphController:
     def button_press(self):
         slider_value = self.view.getSliderValue()
         # coefficients = self.model.getCoefficientMatrix()
-        y_trendline, x = self.model.makeTrendline(slider_value)
-        data, x_values = self.model.get_current_data()
-        self.view.update_graph(y_trendline, x)
+        y_trendline, x_trendline = self.model.makeTrendline(slider_value)
+        y_data, x_data = self.model.get_current_data()
+        self.view.update_graph(y_data, x_data, y_trendline)
         print("")
         
         

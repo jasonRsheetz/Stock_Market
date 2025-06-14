@@ -40,23 +40,29 @@ class GraphView:
 
         # Initialize plot
         self.ax = self.fig.add_subplot(111)
-        self.line, = self.ax.plot([], [])
+        self.data_line, = self.ax.plot([], [])
+        self.data_trendline, = self.ax.plot([], [])
         self.ax.set_xlabel('X Axis')
         self.ax.set_ylabel('Y Axis')
         self.ax.grid(True)
     
-    def update_graph(self, data, x_values):
+    def update_graph(self, bitcoin_data, x_values, trendline_values=None):
         """Update the displayed graph"""
-        self.line.set_xdata(x_values)
-        self.line.set_ydata(data)
+        self.data_line.set_xdata(x_values)
+        self.data_line.set_ydata(bitcoin_data)
+        
+        if trendline_values is not None:
+            self.data_trendline.set_xdata(x_values)
+            self.data_trendline.set_ydata(trendline_values)
+            
         self.ax.relim()
         self.ax.autoscale_view()
         self.canvas.draw()
-        print(len(data))
+        print(len(bitcoin_data))
         
-        if len(data)> self.last_slider_length:
-            self.last_slider_length = len(data)
-            self.horizontal_slider.configure(to=len(data))
+        if len(bitcoin_data) > self.last_slider_length:
+            self.last_slider_length = len(bitcoin_data)
+            self.horizontal_slider.configure(to=len(bitcoin_data))
         
     def get_min_x(self):
         

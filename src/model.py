@@ -72,12 +72,22 @@ class GraphModel:
         x = self.x_values[_x_min:]
         A = np.vstack([x, np.ones(len(x))]).T
         y = np.array(self.data[_x_min:])
-        coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
+        linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
         
-        slope = x*coefficients[0]
-        y_offset = np.ones_like(x)*coefficients[1]
+        non_linear_coefficients = np.polyfit(x, y, 2)
+        
+        equation = np.ones_like(x)
+        i = 0
+        
+        for value in x:
+            equation[i] = non_linear_coefficients[0]*(x[i]**2) + non_linear_coefficients[1]*(x[i]) + non_linear_coefficients[2]
+            i+=1
+
+        slope = x*linear_coefficients[0]
+        y_offset = np.ones_like(x)*linear_coefficients[1]
         y_trendline = slope + y_offset
-        return y_trendline, x
+        return equation, x
+        # return y_trendline, x <- linear solution
         
         
         
