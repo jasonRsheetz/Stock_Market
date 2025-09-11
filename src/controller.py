@@ -16,7 +16,7 @@ class GraphController:
         # self.view.set_button_command(self.handle_button_press)
         
         # Set initial graph
-        data, x_values = self.model.get_current_data()
+        data, x_values = self.model.get_current_data(self.view.getSliderValue())
         self.view.update_graph(data, x_values)
         
         # Create and start the timer
@@ -36,7 +36,7 @@ class GraphController:
         self.model.write_data()
         
         # Generate sample data (replace with actual data source)
-        data, x_values = self.model.get_current_data()
+        data, x_values = self.model.get_current_data(self.view.getSliderValue())
         
         # work on these commented out lines
         min_x = self.view.get_min_x()
@@ -56,7 +56,8 @@ class GraphController:
         slider_value = self.view.getSliderValue()
         # coefficients = self.model.getCoefficientMatrix()
         y_trendline, x_trendline = self.model.makeTrendline(slider_value)
-        y_data, x_data = self.model.get_current_data()
+        y_data, x_data = self.model.get_current_data(slider_value)
+        y_data = y_data[-len(x_data):]
         self.view.update_graph(y_data, x_data, y_trendline)
         print("")
         

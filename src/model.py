@@ -22,9 +22,9 @@ class GraphModel:
         self.x_values = np.arange(len(self.data))
         return self.data, self.x_values
     
-    def get_current_data(self):
+    def get_current_data(self, _x_min):
         """Return current data state"""
-        return self.data, self.x_values
+        return self.data, self.x_values[_x_min:]
 
     def get_bitcoin_price(self):
         """Fetch Bitcoin price from CoinGecko API"""

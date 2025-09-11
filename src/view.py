@@ -21,11 +21,6 @@ class GraphView:
         self.button = tk.Button(self.container, text="I am a button", command=self._on_button_press)
         self.button.pack(pady=5)
         
-        #setup input boxes
-        min_value_string = tk.StringVar(value="0")
-        self.min_x = tk.Entry(self.container, textvariable=min_value_string)
-        self.min_x.pack(pady=5)
-        
         # Create horizontal slider
         self.horizontal_slider = tk.Scale(
             root,
@@ -66,7 +61,7 @@ class GraphView:
         
     def get_min_x(self):
         
-        min_value = int(self.min_x.get())
+        min_value = int(self.horizontal_slider.get())
         return min_value
 
     def show_values(self):
