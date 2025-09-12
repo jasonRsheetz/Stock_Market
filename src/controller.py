@@ -24,6 +24,8 @@ class GraphController:
         self.timer.daemon = True  # So the thread dies when main program exits
         self.timer.start()
         
+        self.graph_trendline()
+
     def timer_function(self,interval, callback):
         while True:
             time.sleep(interval)
@@ -40,6 +42,9 @@ class GraphController:
         
         # work on these commented out lines
         min_x = self.view.get_min_x()
+
+        #graph trendline
+        self.graph_trendline()
         
         # Update the view
         self.view.update_graph(data[min_x:len(x_values)], x_values[min_x:len(x_values)])
@@ -48,11 +53,12 @@ class GraphController:
         # Update model when slider changes
         data, x_values = self.model.get_graph_min(value)
         
+        self.graph_trendline()
+
         # Update the view
         self.view.update_graph(data, x_values)
         
-        
-    def button_press(self):
+    def graph_trendline(self):
         slider_value = self.view.getSliderValue()
         # coefficients = self.model.getCoefficientMatrix()
         y_trendline, x_trendline = self.model.makeTrendline(slider_value)
