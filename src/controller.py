@@ -67,6 +67,49 @@ class GraphController:
         self.view.update_graph(y_data, x_data, y_trendline)
         print("")
         
+    def button_press(self):
+
+        r_squared = 0
+        i = 0;
+        residual = 0
+        total_variance = 0
+                
+        y_trendline, x_trendline = self.model.makeTrendline(self.view.getSliderValue())
+        y_data, x_data = self.model.get_current_data(self.view.getSliderValue())
+        
+        mean = np.mean(y_data)
+        
+        for point in y_trendline:
+           
+           #find the residual sum of squares, which is y_data - y_trendline squared
+           residual += pow(y_data[i] - y_trendline[i] ,2)
+
+           #find total sum of squares, which is y_data - mean of all y_data squared
+           total_variance += pow(y_data[i] - mean, 2)
+            
+           i += 1
+        #divide residual ober total and subtract from 1 
+        r_squared += 1 - residual/total_variance       
+        print(r_squared)
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       

@@ -18,8 +18,8 @@ class GraphView:
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         
         # button
-        # self.button = tk.Button(self.container, text="Trend That Line", command=self._on_button_press)
-        # self.button.pack(pady=5)
+        self.button = tk.Button(self.container, text="Get R Value", command=self._on_button_press)
+        self.button.pack(pady=5)
         
         # Create horizontal slider
         self.horizontal_slider = tk.Scale(
