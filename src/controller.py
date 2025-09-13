@@ -66,17 +66,21 @@ class GraphController:
         y_data = y_data[-len(x_data):]
         self.view.update_graph(y_data, x_data, y_trendline)
         print("")
-        
-    def button_press(self):
-
+       
+    def calc_r_value(self, min_value=None):
+       
+        if min_value == None:
+            min_value = self.view.getSliderValue()
+             
         r_squared = 0
         i = 0;
         residual = 0
         total_variance = 0
                 
-        y_trendline, x_trendline = self.model.makeTrendline(self.view.getSliderValue())
-        y_data, x_data = self.model.get_current_data(self.view.getSliderValue())
-        
+        y_trendline, x_trendline = self.model.makeTrendline(min_value)
+        y_data, x_data = self.model.get_current_data(min_value)
+        y_data = y_data[-len(x_data):]       
+
         mean = np.mean(y_data)
         
         for point in y_trendline:
@@ -89,10 +93,29 @@ class GraphController:
             
            i += 1
         #divide residual ober total and subtract from 1 
-        r_squared += 1 - residual/total_variance       
-        print(r_squared)
+        r_squared += 1 - (residual/total_variance) 
         
+        return r_squared * 100 
+    
+    def button_press(self):
+
+        i = 0
+        r_value = 0
+        temp_r_value = 0
+        best_r_value_location = 0
         
+        y_data, x_data = self.model.get_current_data(self.view.getSliderValue())
+        
+        while i < len(x_data) - 50:
+            temp_r_value = self.calc_r_value(i)
+            
+            if temp_r_value > r_value:
+                r_value = temp_r_value
+                best_r_value_location = i
+
+            i += 1
+            
+        print()
         
         
         

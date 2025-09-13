@@ -42,6 +42,9 @@ class GraphView:
         self.ax.grid(True)
     
     def update_graph(self, bitcoin_data, x_values, trendline_values=None):
+        
+        make x_values = x_values + 100?
+        
         """Update the displayed graph"""
         self.data_line.set_xdata(x_values)
         self.data_line.set_ydata(bitcoin_data)
