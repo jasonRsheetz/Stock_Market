@@ -16,9 +16,10 @@ class GraphController:
         # self.view.set_button_command(self.handle_button_press)
         
         # Set initial graph
-        # data, x_values = self.model.get_current_data(self.view.getSliderValue())
-        # self.view.update_graph(data, x_values)
+        data, x_values = self.model.get_current_data(self.view.getSliderValue())
+        self.view.update_graph(data, x_values)
         
+
         # Create and start the timer
         self.timer = threading.Thread(target=self.timer_function, args=(20.0, self.get_timer_driven_data))
         self.timer.daemon = True  # So the thread dies when main program exits
@@ -37,7 +38,7 @@ class GraphController:
         #save data 
         self.model.write_data()
         
-        # Generate sample data (replace with actual data source)
+        # Get data
         data, x_values = self.model.get_current_data(self.view.getSliderValue())
         
         # work on these commented out lines
@@ -64,7 +65,7 @@ class GraphController:
         y_trendline, x_trendline = self.model.makeTrendline(slider_value)
         y_data, x_data = self.model.get_current_data(slider_value)
         y_data = y_data[-len(x_data):]
-        self.view.update_graph(y_data, x_data, y_trendline)
+        self.view.update_graph(y_data, x_data, y_trendline, x_trendline)
         print("")
        
     def calc_r_value(self, min_value=None):

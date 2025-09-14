@@ -1,4 +1,5 @@
 import tkinter as tk
+import numpy as np
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -16,8 +17,7 @@ class GraphView:
         self.fig = Figure(figsize=(6, 4))
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.container)
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-        
-        # button
+       # button
         self.button = tk.Button(self.container, text="Get R Value", command=self._on_button_press)
         self.button.pack(pady=5)
         
@@ -41,18 +41,15 @@ class GraphView:
         self.ax.set_ylabel('Y Axis')
         self.ax.grid(True)
     
-    def update_graph(self, bitcoin_data, x_values, trendline_values=None):
-        
-        # make x_values = x_values + 100?
-        # extended_x = np.arange(x_values[-1]+1, x_values[-1]+100)
-        # x_values = np.concatenate(x_values, extended_x)
+    def update_graph(self, bitcoin_data, x_values, trendline_values=None, x_trendline=None):
         
         """Update the displayed graph"""
         self.data_line.set_xdata(x_values)
         self.data_line.set_ydata(bitcoin_data)
         
         if trendline_values is not None:
-            self.data_trendline.set_xdata(x_values)
+
+            self.data_trendline.set_xdata(x_trendline)
             self.data_trendline.set_ydata(trendline_values)
             
         self.ax.relim()
