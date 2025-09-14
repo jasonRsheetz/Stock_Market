@@ -76,24 +76,21 @@ class GraphModel:
         
         non_linear_coefficients = np.polyfit(x, y, 2)
         
+        equation = np.ones_like(x)
         i = 0
         
-        prediction_range = np.arange(x[-1]+1, x[-1]+101)
-        prediciton_x = np.concatenate([x, prediction_range])
-        
-        equation = np.ones_like(prediciton_x)
-
-        for value in prediciton_x:
-            equation[i] = non_linear_coefficients[0]*(prediciton_x[i]**2) + \
-            non_linear_coefficients[1]*(prediciton_x[i]) + \
+        for value in x:
+            equation[i] = non_linear_coefficients[0]*(x[i]**2) + \
+            non_linear_coefficients[1]*(x[i]) + \
             non_linear_coefficients[2]
 
             i+=1
 
-        slope = prediciton_x*linear_coefficients[0]
-        y_offset = np.ones_like(prediciton_x)*linear_coefficients[1]
+        slope = x*linear_coefficients[0]
+        y_offset = np.ones_like(x)*linear_coefficients[1]
         y_trendline = slope + y_offset
-        return equation,prediciton_x 
+        return equation, x
+        # return y_trendline, x <- linear solution
         
         
         

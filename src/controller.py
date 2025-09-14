@@ -16,8 +16,8 @@ class GraphController:
         # self.view.set_button_command(self.handle_button_press)
         
         # Set initial graph
-        data, x_values = self.model.get_current_data(self.view.getSliderValue())
-        self.view.update_graph(data, x_values)
+        # data, x_values = self.model.get_current_data(self.view.getSliderValue())
+        # self.view.update_graph(data, x_values)
         
         # Create and start the timer
         self.timer = threading.Thread(target=self.timer_function, args=(20.0, self.get_timer_driven_data))

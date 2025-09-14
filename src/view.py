@@ -43,7 +43,9 @@ class GraphView:
     
     def update_graph(self, bitcoin_data, x_values, trendline_values=None):
         
-        make x_values = x_values + 100?
+        # make x_values = x_values + 100?
+        # extended_x = np.arange(x_values[-1]+1, x_values[-1]+100)
+        # x_values = np.concatenate(x_values, extended_x)
         
         """Update the displayed graph"""
         self.data_line.set_xdata(x_values)
