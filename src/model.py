@@ -82,18 +82,22 @@ class GraphModel:
         prediciton_x = np.concatenate([x, prediction_range])
         
         equation = np.ones_like(prediciton_x)
-
+        derivative_eqn = np.ones_like(prediciton_x)
+        
         for value in prediciton_x:
             equation[i] = non_linear_coefficients[0]*(prediciton_x[i]**2) + \
             non_linear_coefficients[1]*(prediciton_x[i]) + \
             non_linear_coefficients[2]
 
+            derivative_eqn[i] = non_linear_coefficients[0]*prediciton_x[i]
+            derivative_eqn[i] = 2*(non_linear_coefficients[0])*prediciton_x[i] + non_linear_coefficients[1]
             i+=1
 
         slope = prediciton_x*linear_coefficients[0]
         y_offset = np.ones_like(prediciton_x)*linear_coefficients[1]
         y_trendline = slope + y_offset
-        return equation,prediciton_x 
+        
+        return equation,prediciton_x, derivative_eqn 
         
         
         

@@ -62,10 +62,10 @@ class GraphController:
     def graph_trendline(self):
         slider_value = self.view.getSliderValue()
         # coefficients = self.model.getCoefficientMatrix()
-        y_trendline, x_trendline = self.model.makeTrendline(slider_value)
+        y_trendline, x_trendline, y_derivative = self.model.makeTrendline(slider_value)
         y_data, x_data = self.model.get_current_data(slider_value)
         y_data = y_data[-len(x_data):]
-        self.view.update_graph(y_data, x_data, y_trendline, x_trendline)
+        self.view.update_graph(y_data, x_data, y_trendline, x_trendline, y_derivative)
         print("")
        
     def calc_r_value(self, min_value=None):
@@ -78,13 +78,13 @@ class GraphController:
         residual = 0
         total_variance = 0
                 
-        y_trendline, x_trendline = self.model.makeTrendline(min_value)
+        y_trendline, x_trendline, y_derivative = self.model.makeTrendline(min_value)
         y_data, x_data = self.model.get_current_data(min_value)
         y_data = y_data[-len(x_data):]       
 
         mean = np.mean(y_data)
         
-        for point in y_trendline:
+        for point in x_data:
            
            #find the residual sum of squares, which is y_data - y_trendline squared
            residual += pow(y_data[i] - y_trendline[i] ,2)
@@ -116,7 +116,7 @@ class GraphController:
 
             i += 1
             
-        print()
+        print("r: " + str(r_value) + "@: " + str(best_r_value_location))
         
         
         

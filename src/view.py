@@ -17,6 +17,8 @@ class GraphView:
         self.fig = Figure(figsize=(6, 4))
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.container)
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        
+        i need to add a second plot for the derivative:
        # button
         self.button = tk.Button(self.container, text="Get R Value", command=self._on_button_press)
         self.button.pack(pady=5)
@@ -37,11 +39,12 @@ class GraphView:
         self.ax = self.fig.add_subplot(111)
         self.data_line, = self.ax.plot([], [])
         self.data_trendline, = self.ax.plot([], [])
+        self.data_derivative, = self.ax.plot([], [])
         self.ax.set_xlabel('X Axis')
         self.ax.set_ylabel('Y Axis')
         self.ax.grid(True)
     
-    def update_graph(self, bitcoin_data, x_values, trendline_values=None, x_trendline=None):
+    def update_graph(self, bitcoin_data, x_values, trendline_values=None, x_trendline=None, y_derivative=None):
         
         """Update the displayed graph"""
         self.data_line.set_xdata(x_values)
@@ -51,6 +54,10 @@ class GraphView:
 
             self.data_trendline.set_xdata(x_trendline)
             self.data_trendline.set_ydata(trendline_values)
+            
+        if y_derivative is not None:
+            self.data_derivative.set_xdata(x_trendline)
+            self.data_derivative.set_ydata(y_derivative)
             
         self.ax.relim()
         self.ax.autoscale_view()
